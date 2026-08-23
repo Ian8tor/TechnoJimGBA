@@ -1,32 +1,53 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-#define SFX_Heart_bytes 16934
-extern const signed char SFX_Heart[SFX_Heart_bytes];
+//Surroundings
+#define AMBTown_OldCitySounds_bytes 120858
+extern const signed char AMBTown_OldCitySounds[AMBTown_OldCitySounds_bytes];
 
-#define SFX_Coins_bytes 8866
-extern const signed char SFX_Coins[SFX_Coins_bytes];
+#define DOORGate_CastleGate_bytes 69263
+extern const signed char DOORGate_CastleGate[DOORGate_CastleGate_bytes];
 
-#define SFX_Bootstep_bytes 4663
-extern const signed char SFX_Bootstep[SFX_Bootstep_bytes];
+//Human Sounds
+#define CRWDApls_SmallCrowd_bytes 64784
+extern const signed char CRWDApls_SmallCrowd[CRWDApls_SmallCrowd_bytes];
 
-#define SFX_Labored_breathing_bytes 19717
-extern const signed char SFX_Labored_breathing[SFX_Labored_breathing_bytes];
+#define FEETHmn_Bootstep_bytes 4663
+extern const signed char FEETHmn_Bootstep[FEETHmn_Bootstep_bytes];
 
-#define SFX_Dropped_disc_bytes 2342
-extern const signed char SFX_Dropped_disc[SFX_Dropped_disc_bytes];
+#define FGHTBf_Tackled_bytes 11931
+extern const signed char FGHTBf_Tackled[FGHTBf_Tackled_bytes];
 
-#define SFX_Gate_open_bytes 69263
-extern const signed char SFX_Gate_open[SFX_Gate_open_bytes];
+#define HMNBrth_KickedGasp_bytes 2680
+extern const signed char HMNBrth_KickedGasp[HMNBrth_KickedGasp_bytes];
 
-#define SFX_Sword_drawn_bytes 5523
-extern const signed char SFX_Sword_drawn[SFX_Sword_drawn_bytes];
+#define HMNBrth_LaboredBreathing_bytes 19717
+extern const signed char HMNBrth_LaboredBreathing[HMNBrth_LaboredBreathing_bytes];
 
-#define SFX_Small_crowd_applause_bytes 64784
-extern const signed char SFX_Small_crowd_applause[SFX_Small_crowd_applause_bytes];
+#define HMNBrth_DyingGasp_bytes 22509
+extern const signed char HMNBrth_DyingGasp[HMNBrth_DyingGasp_bytes];
 
-#define SFX_City_sounds_bytes 120858
-extern const signed char SFX_City_sounds[SFX_City_sounds_bytes];
+#define HMNSnor_Snoring_bytes 21397
+extern const signed char HMNSnor_Snoring[HMNSnor_Snoring_bytes];
+
+//Item Sounds
+#define BEEPMed_HeartMonitor_bytes 16934
+extern const signed char BEEPMed_HeartMonitor[BEEPMed_HeartMonitor_bytes];
+
+#define ELECZap_InternalFault_bytes 14032
+const signed char ELECZap_InternalFault_abw[ELECZap_InternalFault_bytes];
+
+#define METLFric_CreakingMetal_bytes 25843
+extern const signed char METLFric_CreakingMetal[METLFric_CreakingMetal_bytes];
+
+#define OBJCoin_CoinJingle_bytes 8866
+extern const signed char OBJCoin_CoinJingle[OBJCoin_CoinJingle_bytes];
+
+#define PLASImpt_DroppedDisc_bytes 2342
+extern const signed char PLASImpt_DroppedDisc[PLASImpt_DroppedDisc_bytes];
+
+#define WEAPSwrd_SwordDrawn_bytes 5523
+extern const signed char WEAPSwrd_SwordDrawn[WEAPSwrd_SwordDrawn_bytes];
 
 #define SFX_jump_bytes 3343
 extern const signed char SFX_jump[SFX_jump_bytes];
@@ -38,17 +59,15 @@ extern const signed char SFX_landing[SFX_landing_bytes];
 extern const signed char SFX_typing[SFX_typing_bytes];
 
 
-//Music
-#define MUS_Metal_Drum_bytes 193905
-extern const signed char MUS_Metal_Drum[MUS_Metal_Drum_bytes];
+// Full Songs
+#define MUSCSong_BlueSkies_bytes 403810
+extern const signed char MUSCSong_BlueSkies[MUSCSong_BlueSkies_bytes];
 
-#define MUS_Stolen_Piano_bytes 192635
-extern const signed char MUS_Stolen_Piano[MUS_Stolen_Piano_bytes];
+#define MUSCSong_MetalDrum_bytes 193905
+extern const signed char MUSCSong_MetalDrum[MUSCSong_MetalDrum_bytes];
 
-#define MUS_Blue_Skies_bytes 403810
-extern const signed char MUS_Blue_Skies[MUS_Blue_Skies_bytes];
+#define MUSCSongStolenPiano_bytes 192635
+extern const signed char MUSCSong_StolenPiano[MUSCSong_StolenPiano_bytes];
 
 
 #endif
-
-
