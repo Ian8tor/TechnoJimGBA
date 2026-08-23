@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef MUSIC_H
 #define MUSIC_H
 
@@ -30,12 +32,13 @@ extern const signed char HMNBrth_DyingGasp[HMNBrth_DyingGasp_bytes];
 #define HMNSnor_Snoring_bytes 21397
 extern const signed char HMNSnor_Snoring[HMNSnor_Snoring_bytes];
 
+
 //Item Sounds
 #define BEEPMed_HeartMonitor_bytes 16934
 extern const signed char BEEPMed_HeartMonitor[BEEPMed_HeartMonitor_bytes];
 
 #define ELECZap_InternalFault_bytes 14032
-const signed char ELECZap_InternalFault_abw[ELECZap_InternalFault_bytes];
+extern const signed char ELECZap_InternalFault_abw[ELECZap_InternalFault_bytes];
 
 #define METLFric_CreakingMetal_bytes 25843
 extern const signed char METLFric_CreakingMetal[METLFric_CreakingMetal_bytes];
@@ -66,7 +69,7 @@ extern const signed char MUSCSong_BlueSkies[MUSCSong_BlueSkies_bytes];
 #define MUSCSong_MetalDrum_bytes 193905
 extern const signed char MUSCSong_MetalDrum[MUSCSong_MetalDrum_bytes];
 
-#define MUSCSongStolenPiano_bytes 192635
+#define MUSCSong_StolenPiano_bytes 192635
 extern const signed char MUSCSong_StolenPiano[MUSCSong_StolenPiano_bytes];
 
 

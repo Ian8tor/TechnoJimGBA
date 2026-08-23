@@ -205,7 +205,7 @@ int main()
 	while(1)
 	{
 		
-		if (!isPlaying(0)) { playSound(MUS_Blue_Skies, MUS_Blue_Skies_bytes, 0); }
+		if (!isPlaying(0)) { playSound(MUSCSong_BlueSkies, MUSCSong_BlueSkies_bytes, 0); }
 		key_poll();
 		vid_vsync();
 		
