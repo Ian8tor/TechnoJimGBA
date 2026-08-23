@@ -38,7 +38,7 @@ extern const signed char HMNSnor_Snoring[HMNSnor_Snoring_bytes];
 extern const signed char BEEPMed_HeartMonitor[BEEPMed_HeartMonitor_bytes];
 
 #define ELECZap_InternalFault_bytes 21550
-extern const signed char ELECZap_InternalFault_abw[ELECZap_InternalFault_bytes];
+extern const signed char ELECZap_InternalFault[ELECZap_InternalFault_bytes];
 
 #define METLFric_CreakingMetal_bytes 25843
 extern const signed char METLFric_CreakingMetal[METLFric_CreakingMetal_bytes];
