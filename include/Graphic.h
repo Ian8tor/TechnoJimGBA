@@ -1,6 +1,25 @@
 #ifndef GRAPHIC_H
 #define GRAPHIC_H
 
+
+#define ANIL(n)   (0x0001 * (n))
+#define ANIF(n)   (0xFFFF * (n))
+#define ANI(f,l) (unsigned int)((0xFFFF * (unsigned int)(f)) + (unsigned int)(l))
+
+
+
+struct Animation
+{
+	//sprite sheet data
+	const unsigned char* spr;
+	int  frameSize;
+	
+	//Animations
+	int   animationCount;
+	unsigned int** animations;
+};
+
+
 #define TIL_font_bytes 4096
 extern const unsigned short TIL_font_palette[16];
 extern const unsigned char  TIL_font[TIL_font_bytes];
@@ -28,6 +47,11 @@ extern const unsigned short MAP_64x64[MAP_64x64_w * MAP_64x64_h];
 #define GFX_sadSlime_bytes 128
 extern const unsigned short GFX_sadSlime_palette[48];
 extern const unsigned char  GFX_sadSlime[GFX_sadSlime_bytes];
+
+#define GFX_sadSlimeSheet_bytes 2176
+extern const unsigned short GFX_sadSlimeSheet_palette[32];
+extern const unsigned char  GFX_sadSlimeSheet[GFX_sadSlimeSheet_bytes];
+extern struct Animation ANI_sadSlimeSheet;
 
 
 //HeadShots

@@ -18,7 +18,7 @@ include $(DEVKITARM)/gba_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	$(shell basename $(CURDIR))
 BUILD		:=	build
-SOURCES		:=	src res/sfx res/gfx res/til res/map
+SOURCES		:=	src res/sfx res/gfx res/til res/map res
 DATA		:=	
 INCLUDES	:=  include
 

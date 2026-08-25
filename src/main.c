@@ -20,6 +20,7 @@ OBJ_AFFINE* obj_aff_buffer = (OBJ_AFFINE*)obj_buffer;
 
 
 
+//Converts a number to a string
 int numToString(char* str, int num, int max_len)
 {
 	int len = 0;
@@ -34,7 +35,8 @@ int numToString(char* str, int num, int max_len)
 	return len;
 	
 }
-			
+
+//Shows victory score with highscores			
 int displayHighscore(int score)
 {
 	clearScreen(1);
@@ -61,6 +63,7 @@ int displayHighscore(int score)
 	return position;
 }
 
+//Allows player to select name
 int selectName(int y)
 {	
 	if (key_hit(KEY_A) && __player_name_len < 10)
@@ -92,9 +95,7 @@ int selectName(int y)
 	renderText(17, y, __player_name);
 	if (key_hit(KEY_SELECT)) { return 1; }
 	return 0;
-}
-
-	
+}	
 
 //This will take a larger map and pull 1 32x32 screen chunk to the screen
 void loadMapTo32x32(const unsigned short* map, int w, int h, int sbb)
@@ -140,6 +141,11 @@ void moveScreen(const unsigned short* map, int w, int h, int sbb, int bg, int ne
 }
 
 
+//2 , 4 , 4 , 32
+//2 , 4 , 4 , 32
+//1 , 4 , 16, 64
+
+
 int main()
 {	
 	REG_DISPCNT = DCNT_MODE0 | DCNT_BG0 | DCNT_BG3 | DCNT_OBJ | DCNT_OBJ_1D;
@@ -167,8 +173,8 @@ int main()
 	
 	// * * * SPRITE * * * 
 	//Places the tiles into block 4
-	memcpy(&tile_mem[4][0], GFX_sadSlime, GFX_sadSlime_bytes);
-	memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlime_palette, 48);
+	memcpy(&tile_mem[4][0], GFX_sadSlimeSheet, GFX_sadSlimeSheet_bytes);
+	memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlimeSheet_palette, 32);
 	
 	//Initalizes sprite
 	oamInit(obj_buffer, 128);
@@ -194,7 +200,7 @@ int main()
 	
 	obj_set_attr(slime,
 				 ATTR0_BUILD(0 , 0, 0, 0, 0, blob.pos[1]),
-				 ATTR1_BUILD(1 , 0, 0, blob.pos[0]),
+				 ATTR1_BUILD(1 , 0, 0, blob.pos[0]),+
 				 ATTR2_BUILD(pb, 0, tid));
 	
 	createAllConversations();
@@ -202,24 +208,52 @@ int main()
 	int scrX = 0;
 	int scrY = 0;
 	
+	int f = 0;
+	int t = 0;
+	int a = 0;
+	
+	int ai = 0;
+	int fi = 0;
+	
 	while(1)
 	{
+		/*
+		se_mem[31][29] = a + 48;
+		se_mem[31][61] = f + 48;
 		
+		char text[] = {48, 48, 48, 48, 48, 48, 48, 0};
+		numToString(text, ANI_sadSlimeSheet.animations[a][f] / 0xFFFF, 7);
+		renderText(0, 0, text);
+		
+		char text2[] = {48, 48, 48, 48, 48, 48, 48, 0};
+		numToString(text2, ANI_sadSlimeSheet.animations[a][f] % 0xFFFF, 7);
+		renderText(0, 1, text2);
+		
+		*/
 		if (!isPlaying(0)) { playSound(MUSCSong_BlueSkies, MUSCSong_BlueSkies_bytes, 0); }
 		key_poll();
 		vid_vsync();
+		
+		//Changes animations
+		if (key_hit(KEY_UP))   { t = 0; f = 0; a = (a + 1) % ANI_sadSlimeSheet.animationCount; }
+		if (key_hit(KEY_DOWN)) { t = 0; f = 0; a = (a - 1); if (a == -1) { a = ANI_sadSlimeSheet.animationCount - 1;} }
+		
+		memcpy(&tile_mem[4][0], &ANI_sadSlimeSheet.spr[ANI_sadSlimeSheet.frameSize * (ANI_sadSlimeSheet.animations[a][f] / 0xFFFF)] , GFX_sadSlime_bytes);
+		t = (t + 1) % (ANI_sadSlimeSheet.animations[a][f] % 0xFFFF);
+		
+		if (t == 0) { f = (f + 1); }
+		if (ANI_sadSlimeSheet.animations[a][f] == 0) { f = 0; }
+		
 		
 		//if (keyplaySound(MUS_Stolen_Piano, MUS_Stolen_Piano_bytes, 0);
 					
 		runConversations();
 		
-		/*
 		if (__conv_vars[START] == 0 && __running_conv == -1)
 		{
 			__conv_vars[START] = selectName(displayHighscore(526732));
 			if (__conv_vars[START]) { createTextBox(1, 12, 28, 7); }
 		}
-		*/
 		
 		// * * * SPRITE * * 
 		movePlayer(&blob);
