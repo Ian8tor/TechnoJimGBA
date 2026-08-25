@@ -1,9 +1,0 @@
-#Stops all build output from being pushed
-build/
-
-#Stops GBA saves
-TechnoJim.sav
-TechnoJim.elf
-
-#Stops weird desktop thing
-desktop.ini
