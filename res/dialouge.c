@@ -5,6 +5,7 @@
 
 void createAllConversations()
 {
+	//VAR(START) | GREATER_THAN | VAL(0)
 	createConversation(0,9,VAR(START) | GREATER_THAN | VAL(0));
 	addMessageToConversation(0,0,DEFAULT_DECISION,ARISYA_HAPPY|LEFT_SIDE,"Hi there! We can still be friends...\nCant we?\n");
 	addMessageToConversation(0,1,DEFAULT_DECISION,ARISYA_SAD|RIGHT_SIDE,"Yellow, you can stand can't you.");

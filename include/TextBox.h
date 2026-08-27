@@ -7,6 +7,7 @@
 //The text variable
 extern char* __text;
 extern int   __se_index;
+extern int   __font_pal;
 
 extern char __player_name[11];
 extern int   __player_name_len;

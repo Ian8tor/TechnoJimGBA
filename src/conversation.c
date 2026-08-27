@@ -95,7 +95,7 @@ int runConversations()
 		int c = conv->sets[conv->currentMessage] & 0x0000FFFF;
 		if (c != NO_FACE)
 		{
-			memcpy(&tile_mem[1][2], &GFX_headshots[(c & ~RIGHT_SIDE) * EXPRESSION_LEN], EXPRESSION_LEN);
+			memcpy(&tile_mem[0][2], &GFX_headshots[(c & ~RIGHT_SIDE) * EXPRESSION_LEN], EXPRESSION_LEN);
 			addTexBoxPicture(((c & RIGHT_SIDE) != 0) - ((c & RIGHT_SIDE) == 0));
 		}
 		
@@ -106,7 +106,9 @@ int runConversations()
 	{
 		//Finds if it should make a decision
 		int LR = (conv->decisions[conv->currentMessage] & 0xFFFF0000) == DEFAULT_LR;
-		if ((key_hit(PROGRESS_DIALOUGE_KEY) && !LR) || (LR && __conv_vars[LR_INPUT] != 0))
+		if ((key_hit(PROGRESS_DIALOUGE_KEY) && !LR) || 
+		    (LR && __conv_vars[LR_INPUT] != 0)      ||
+			(conv->messages[conv->currentMessage][0] == 0))
 		{
 			//Jumps to next conv
 			trigger = conv->decisions[conv->currentMessage];

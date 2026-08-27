@@ -22,6 +22,7 @@ int   __text_areW = 0;
 int   __text_areH = 0;
 
 int   __se_index = 31;
+int   __font_pal = 0xF000;
 
 
 //From textbox.c
@@ -40,7 +41,7 @@ void fillLayer(int layer, int pitch, int v, int x, int y, int w, int h)
 	{
 		for (int j = y; j < y+h; j++)
 		{
-			se_mem[layer][j*pitch + i] = v;
+			se_mem[layer][j*pitch + i] = __font_pal + v;
 		}
 	}
 }
@@ -83,21 +84,21 @@ void createTextBox(int x, int y, int w, int h)
 	
 	// * * * Boarders * * *
 	//Four corners
-	se_mem[__se_index][(y    )*32 + (x    )] = 29;
-	se_mem[__se_index][(y    )*32 + (x+w-1)] = 29 | BG_TILE_HF;
-	se_mem[__se_index][(y+h-1)*32 + (x    )] = 29 | BG_TILE_VF;
-	se_mem[__se_index][(y+h-1)*32 + (x+w-1)] = 29 | BG_TILE_HF | BG_TILE_VF;
+	se_mem[__se_index][(y    )*32 + (x    )] = (__font_pal + 29);
+	se_mem[__se_index][(y    )*32 + (x+w-1)] = (__font_pal + 29) | BG_TILE_HF;
+	se_mem[__se_index][(y+h-1)*32 + (x    )] = (__font_pal + 29) | BG_TILE_VF;
+	se_mem[__se_index][(y+h-1)*32 + (x+w-1)] = (__font_pal + 29) | BG_TILE_HF | BG_TILE_VF;
 	
 	//Four edges
 	for (int i = x+1; i < x+w-1; i++) 
 	{
-		se_mem[__se_index][(y    )*32 + i] = 30;
-		se_mem[__se_index][(y+h-1)*32 + i] = 30 | BG_TILE_VF;
+		se_mem[__se_index][(y    )*32 + i] = (__font_pal + 30);
+		se_mem[__se_index][(y+h-1)*32 + i] = (__font_pal + 30) | BG_TILE_VF;
 	}
 	for (int i = y+1; i < y+h-1; i++) 
 	{
-		se_mem[__se_index][i*32 + (x    )] = 31;
-		se_mem[__se_index][i*32 + (x+w-1)] = 31 | BG_TILE_HF;
+		se_mem[__se_index][i*32 + (x    )] = (__font_pal + 31);
+		se_mem[__se_index][i*32 + (x+w-1)] = (__font_pal + 31) | BG_TILE_HF;
 	}
 }
 
@@ -117,7 +118,7 @@ void addTexBoxPicture(int location)
 
 	for (int i = 0; i < 25; i++)
 	{
-		se_mem[__se_index][32*(y+(i/5)) + x+(i%5)] = 2 + i;
+		se_mem[__se_index][32*(y+(i/5)) + x+(i%5)] = __font_pal + 2 + i;
 	}
 }
 
@@ -222,7 +223,7 @@ int renderTextBoxText(int charsToAdd)
 				__cursor = i << 8;
 				break;
 			}	
-			se_mem[__se_index][__screY*32 + __screX] = __player_name[__player_name_i] - 32*captial;
+			se_mem[__se_index][__screY*32 + __screX] = __font_pal +__player_name[__player_name_i] - 32*captial;
 			playSound(SFX_typing, SFX_typing_bytes, 1);
 			__player_name_i++;
 			__screX++;
@@ -249,7 +250,7 @@ int renderTextBoxText(int charsToAdd)
 			break;
 		}	
 		
-		se_mem[__se_index][__screY*32 + __screX] = __text[i];
+		se_mem[__se_index][__screY*32 + __screX] = __font_pal + __text[i];
 		playSound(SFX_typing, SFX_typing_bytes, 1);
 		__screX++;
 	}
@@ -265,7 +266,7 @@ void renderText(int x, int y, char* text)
 	while (text[i] != '\0')
 	{
 		if (text[i] == '\n') {x = 0; y++; continue; }
-		se_mem[__se_index][y*32 + x] = text[i];
+		se_mem[__se_index][y*32 + x] = __font_pal + text[i];
 		x++; i++;
 	}
 }

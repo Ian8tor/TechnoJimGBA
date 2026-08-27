@@ -165,7 +165,7 @@ int main()
 	memcpy(&tile_mem[1][0], TIL_sand2, TIL_sand2_bytes);
 	//memcpy(&se_mem[30][0], MAP_map, 2 * MAP_map_w * MAP_map_h);
 	
-	//memcpy(bg_pal_mem, TIL_font_palette, 32);
+	memcpy(bg_pal_mem + ((__font_pal >> 0x8)), TIL_font_palette, 32);
 	memcpy(&tile_mem[0][0], TIL_font, TIL_font_bytes);
 	
 	
@@ -204,6 +204,7 @@ int main()
 				 ATTR2_BUILD(pb, 0, tid));
 	
 	createAllConversations();
+	createTextBox(1, 12, 28, 7);
 	
 	int scrX = 0;
 	int scrY = 0;
@@ -211,9 +212,6 @@ int main()
 	int f = 0;
 	int t = 0;
 	int a = 0;
-	
-	int ai = 0;
-	int fi = 0;
 	
 	while(1)
 	{
@@ -244,10 +242,10 @@ int main()
 		if (t == 0) { f = (f + 1); }
 		if (ANI_sadSlimeSheet.animations[a][f] == 0) { f = 0; }
 		
-		
-		//if (keyplaySound(MUS_Stolen_Piano, MUS_Stolen_Piano_bytes, 0);
-					
 		runConversations();
+		//if (keyplaySound(MUS_Stolen_Piano, MUS_Stolen_Piano_bytes, 0);
+			
+		
 		
 		if (__conv_vars[START] == 0 && __running_conv == -1)
 		{
