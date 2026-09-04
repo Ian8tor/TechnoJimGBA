@@ -49,6 +49,24 @@ void createAllConversations()
 	addMessageToConversation(1, 15, DEFAULT_LR | JPT(16) | JPF(17), NO_FACE                  , "You feel?\n\nL > Fine\nR > Like I was hit by a hover bus");
 	addMessageToConversation(1, 16,              JPT(250)         , ARISYA_SAD   | LEFT_SIDE , "The healing pods are effective, but you still need to be careful, you could have died");
 	addMessageToConversation(1, 17,              JPT(250)         , ARISYA_SAD   | LEFT_SIDE , "You still look pretty beat up. That guy really did a number on you. But I'm glad you're safe now.");
+	
+	createConversation(2, 18, 0);
+	addMessageToConversation(2, 0,  DEFAULT_DECISION              , ARISYA_HAPPY   | LEFT_SIDE,  "Arisya enters the room, her smile fades, turning downcast."
+	addMessageToConversation(2, 1,  DEFAULT_DECISION              , ARISYA_SAD     | RIGHT_SIDE, "I actually came to get you… It’s father… He is getting worse. The doctors said it will be soon. We need to hurry.";
+	addMessageToConversation(2, 2,  DEFAULT_DECISION              , NO_FACE                    , "You get up and head out of the room, Arisya follows a few steps behind.";
+	addMessageToConversation(2, 3,  DEFAULT_DECISION              , NO_FACE                    , "You are in a large manor standing outside of a door. Arisya paces the hallway, but stops when a doctor steps out.";
+	addMessageToConversation(2, 4,  DEFAULT_DECISION              , DOCTOR_CONCERN | LEFT_SIDE,  "Your father wishes to speak with you, my \aprince\bprincess\f!";
+	addMessageToConversation(2, 5,  DEFAULT_DECISION              , FATHER_WEAK    | RIGHT_SIDE, "Arisya steps to the side allowing you to pass. You step into the room, a healing pod taking up most of the space, other medical supplies dot the sterile room. The sound of labored breaths and beeping machinery fills the space.";
+	addMessageToConversation(2, 6,  DEFAULT_DECISION              , FATHER_WEAK    | RIGHT_SIDE, "My child."
+	addMessageToConversation(2, 7,  DEFAULT_DECISION              , FATHER_WEAK    | LEFT_SIDE,  "You step closer, your fathers labored breaths become louder, his eyes slowly opening and he reaches for you with shaking hands.";
+	addMessageToConversation(2, 8,  DEFAULT_LR | JPT(9) | JPF(11) , NO_FACE                     ,"You respond by\n\nL > Taking his hand\nR > Keeping your distance");
+	addMessageToConversation(2, 9,  DEFAULT_DECISION              , FATHER_SMILE   | LEFT_SIDE,  "You take his hand gently as if not to break him.";
+	addMessageToConversation(2, 10,               JPT(13)         , FATHER_SMILE   | LEFT_SIDE,  "My \aboy\bgirl\f, I wish I could see the \aman\bwoman\f you will become…";
+	addMessageToConversation(2, 11, DEFAULT_DECISION              , FATHER_SAD     | RIGHT_SIDE, "You remain where you are, unwilling to get closer. Father lowers his hand.";
+	addMessageToConversation(2, 12, DEFAULT_DECISION              , FATHER_SAD     | RIGHT_SIDE, "It's ok, child, neither of us are comforted by touch.";
+	addMessageToConversation(2, 13, DEFAULT_DECISION              , NO_FACE        | RIGHT_SIDE, "Father takes a gurgling breath";
+	addMessageToConversation(2, 14, DEFAULT_DECISION              , FATHER_WEAK    | LEFT_SIDE,  “But know I love you. Even if I’m not there to watch you grow or see the future you help create. Help your sister, be her sword. Arisya will receive the GameBoy, but together is the only way you can create a better world.";
+	
 	*/
 	
 }
