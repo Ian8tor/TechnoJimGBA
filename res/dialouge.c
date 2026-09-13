@@ -6,7 +6,25 @@
 void createAllConversations()
 {
 	//VAR(START) | GREATER_THAN | VAL(0)
-	createConversation(0,9,VAR(START) | GREATER_THAN | VAL(0));
+	createConversation(0,3,VAR(START) | EQUAL_TO | VAL(0));
+	addMessageToConversation(0, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_SAD   | RIGHT_SIDE, "We fell into some kind of crystal cave");
+	addMessageToConversation(0, 1, DEFAULT_DECISION, VAR(CONV_NUM) | SET_VAL | VAL(1) | ARISYA_HAPPY | RIGHT_SIDE, "Good you seem to be mostly alright");
+	addMessageToConversation(0, 2, DEFAULT_DECISION,                                    ARISYA_HAPPY | RIGHT_SIDE, "We need to get out of here, jump your way to the surface");
+	
+	createConversation(1,3,VAR(START) | EQUAL_TO | VAL(0));
+	addMessageToConversation(1, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_SHOCK | RIGHT_SIDE, "WHOOO, the gravity is acting really strange");
+	addMessageToConversation(1, 1, DEFAULT_DECISION, VAR(CONV_NUM) | SET_VAL | VAL(2) | ARISYA_HAPPY | RIGHT_SIDE, "It seems it points in the direction of the arrows");
+	addMessageToConversation(1, 2, DEFAULT_DECISION,                                    ARISYA_HAPPY | RIGHT_SIDE, "Be careful where you jump");
+	
+	createConversation(2,3,VAR(START) | EQUAL_TO | VAL(0));
+	addMessageToConversation(2, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_SHOCK | RIGHT_SIDE, "You can use the gravity to launch yourself");
+	addMessageToConversation(2, 1, DEFAULT_DECISION, VAR(CONV_NUM) | SET_VAL | VAL(3) | ARISYA_HAPPY | RIGHT_SIDE, "The exit must be close keep climbing");
+	
+	createConversation(3,3,VAR(START) | EQUAL_TO | VAL(0));
+	addMessageToConversation(2, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_HAPPY | RIGHT_SIDE, "WE MADE IT TO THE SURFACE!!");
+	
+	
+	/*
 	addMessageToConversation(0,0,DEFAULT_DECISION,ARISYA_HAPPY|LEFT_SIDE,"Hi there! We can still be friends...\nCant we?\n");
 	addMessageToConversation(0,1,DEFAULT_DECISION,ARISYA_SAD|RIGHT_SIDE,"Yellow, you can stand can't you.");
 	addMessageToConversation(0,2,DEFAULT_DECISION,ARISYA_SHOCK|LEFT_SIDE,"I...");
@@ -16,6 +34,7 @@ void createAllConversations()
 	addMessageToConversation(0,6,DEFAULT_DECISION,ARISYA_HAPPY|LEFT_SIDE, "Wait! We can't just leave her.");
 	addMessageToConversation(0,7,DEFAULT_DECISION,ARISYA_SHOCK|LEFT_SIDE, "...I'm\n...Sorry.");
 	addMessageToConversation(0,8,DEFAULT_DECISION,ARISYA_SAD|RIGHT_SIDE, "Go ahead\nFinish me. I'll gladly die to see my sisters safe.\vCoward.");
+	*/
 	
 	
 	

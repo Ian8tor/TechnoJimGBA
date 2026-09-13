@@ -79,6 +79,7 @@ int runConversations()
 		trigger = __all_convs[__conv_vars[CONV_NUM]].trigger;
 		if (triggered(trigger)) { __running_conv = __conv_vars[CONV_NUM]; }
 		if (__running_conv == -1) { return 0; }
+		createTextBox(1, 13, 28, 7);
 	}
 	
 	struct Conversation* conv = &__all_convs[__running_conv];
@@ -119,7 +120,9 @@ int runConversations()
 			if (conv->currentMessage >= conv->messageCount)
 			{
 				conv->currentMessage = 0;
+				
 				__running_conv = -1;
+				clearScreen(0);
 			}
 			
 			__message_displayed = 0;

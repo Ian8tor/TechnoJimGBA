@@ -178,7 +178,7 @@ int main()
 	oamInit(obj_buffer, 128);
 	
 	//Slime
-	struct Player blob = {{318<<8, 2017<<8},   //pos
+	struct Player blob = {{318<<8, 3109<<8},   //pos
 						  {7, 9, 8, 8},       //hitbox
 						  {0  , 0   },        //vel
 						  {35 , 35  },        //accel
@@ -195,21 +195,38 @@ int main()
 
 
 	createAllConversations();
-	//createTextBox(1, 12, 28, 7);
+	createTextBox(1, 13, 28, 7);
 	
 	int scrX = 0;
 	int scrY = 0;
 	
+	int time = 0;
+	int dia = 0;
+	
 	while(1)
 	{
+		//Score
+		renderText(0, 0, "Time > ");
+		char timeChar[7] = {48, 48, 48, 48, 48, 48, 48};
+		numToString(timeChar, time, 7);
+		renderText(7, 0, timeChar);
+		
+		if (dia < 3) { time++; }
+		
+		
+		if ((dia == 2) && (blob.pos[1] < (300  << 8))) { dia++; __conv_vars[START] = (u32)0; }
+		if ((dia == 1) && (blob.pos[1] < (1140 << 8))) { dia++; __conv_vars[START] = (u32)0; }
+		if ((dia == 0) && (blob.pos[1] < (2400 << 8))) { dia++; __conv_vars[START] = (u32)0; }
+		
+		
 		if (!isPlaying(0)) { playSound(MUSCSong_BlueSkies, MUSCSong_BlueSkies_bytes, 0); }
 		key_poll();
 		vid_vsync();
-		se_mem[31][32] = 48 + blob.gravDir;
 		spriteTick(&blob.spr);
 		spriteSetR(&blob.spr, 16*(blob.gravDir % 2 == 0));
 		
-		//runConversations();
+		runConversations();
+		
 		/*	
 		if (__conv_vars[START] == 0 && __running_conv == -1)
 		{
@@ -222,8 +239,8 @@ int main()
 		adjustPlayerVelocityGrav(&blob, key_tri_horz(), key_tri_vert(), key_is_down(KEY_B), key_hit(KEY_B));
 		movePlayer(&blob);
 		//obj_set_pos(slime, (blob.pos[0] - scrX) >> 8, (blob.pos[1] - scrY) >> 8);
-		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (6 << 8)*(blob.gravDir % 2 == 0);
-		int reY = blob.pos[1] - scrY - (5  << 8)*(blob.gravDir == 3)*(blob.gravDir % 2 == 1) - (9 << 8)*(blob.gravDir % 2 == 0)*(!blob.facing) + (9 << 8)*(blob.gravDir % 2 == 0)*(blob.facing);
+		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (6 << 8)*(blob.gravDir % 2 == 0) + (3 << 8)*(blob.gravDir == 0);
+		int reY = blob.pos[1] - scrY - (5  << 8)*(blob.gravDir == 3)*(blob.gravDir % 2 == 1) - (9 << 8)*(blob.gravDir % 2 == 0)*(!blob.facing) + (4 << 8)*(blob.gravDir % 2 == 0)*(blob.facing) + ((12 - (24*blob.facing)) << 8)*(blob.gravDir == 0);
 		spriteUpdatePos(&blob.spr, reX, reY);
 		
 		//Update oam
