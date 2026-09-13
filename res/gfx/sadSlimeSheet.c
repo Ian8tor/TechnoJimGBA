@@ -3,9 +3,9 @@
 
 unsigned int  ANI_sadSlimeSheet_walk[] = {ANI(0 , 3 ), ANI(1 , 5), ANI(2 , 5 ), ANI(3 , 5), ANI(4, 8), ANI(5, 5), ANI(6, 5), ANI(7, 5), 0};
 unsigned int  ANI_sadSlimeSheet_idle[] = {ANI(8 , 10), ANI(9 , 5), ANI(10, 10), ANI(11, 5), 0};
-unsigned int  ANI_sadSlimeSheet_jump[] = {ANI(12, 5 ), ANI(13, 5), ANI(14, 3 ), ANI(15, 3), ANI(16, 10000), 0};
-unsigned int  ANI_sadSlimeSheet_land[] = {ANI(16, 3 ), ANI(15, 3), ANI(14, 5 ), ANI(13, 5), ANI(12, 10000), 0};
-unsigned int* ANI_sadSlimeSheet_ani[]  = {ANI_sadSlimeSheet_walk, ANI_sadSlimeSheet_idle, ANI_sadSlimeSheet_jump, ANI_sadSlimeSheet_land};
+unsigned int  ANI_sadSlimeSheet_jump[] = {ANI(12, 5 ), ANI(13, 5), ANI(14, 3 ), ANI(15, 3), ANI(16, 30), ANI(0 , 10000), 0};
+unsigned int  ANI_sadSlimeSheet_land[] = {ANI(16, 3 ), ANI(15, 3), ANI(14, 5 ), ANI(13, 5), ANI(12, 5), 0};
+unsigned int* ANI_sadSlimeSheet_ani[]  = {ANI_sadSlimeSheet_idle, ANI_sadSlimeSheet_walk, ANI_sadSlimeSheet_jump, ANI_sadSlimeSheet_land};
 struct Animation ANI_sadSlimeSheet = {GFX_sadSlimeSheet, 128, 4, ANI_sadSlimeSheet_ani};
 
 

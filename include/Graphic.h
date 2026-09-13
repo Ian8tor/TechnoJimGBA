@@ -32,6 +32,10 @@ extern const unsigned char  TIL_sand[TIL_sand_bytes];
 extern const unsigned short TIL_sand2_palette[16];
 extern const unsigned char  TIL_sand2[TIL_sand2_bytes];
 
+#define TIL_badTiles_bytes 416
+extern const unsigned short TIL_badTiles_palette[16];
+extern const unsigned char  TIL_badTiles[TIL_badTiles_bytes];
+
 
 
 #define MAP_map_w 64
@@ -41,6 +45,10 @@ extern const unsigned short MAP_map[MAP_map_w * MAP_map_h];
 #define MAP_64x64_w 64
 #define MAP_64x64_h 64
 extern const unsigned short MAP_64x64[MAP_64x64_w * MAP_64x64_h];
+
+#define MAP_64x200_w 64
+#define MAP_64x200_h 400
+extern const unsigned short MAP_64x200[MAP_64x200_w * MAP_64x200_h];
 
 
 
@@ -52,6 +60,13 @@ extern const unsigned char  GFX_sadSlime[GFX_sadSlime_bytes];
 extern const unsigned short GFX_sadSlimeSheet_palette[32];
 extern const unsigned char  GFX_sadSlimeSheet[GFX_sadSlimeSheet_bytes];
 extern struct Animation ANI_sadSlimeSheet;
+
+
+#define GFX_cloakGuySheet_bytes 16384
+extern const unsigned short GFX_cloakGuySheet_palette[16];
+extern const unsigned char  GFX_cloakGuySheet[GFX_cloakGuySheet_bytes];
+extern struct Animation ANI_cloakGuySheet;
+
 
 
 //HeadShots

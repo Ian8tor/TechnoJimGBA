@@ -2,9 +2,6 @@
 //   This is a set of typedefs and #defines that can be
 //   found in tonclib and might not be final.
 
-
-
-
 //#pragma once equivlent
 #pragma once
 #ifndef TOOLBOX_H
@@ -492,6 +489,13 @@ INLINE int key_tri_horz()    { return bit_tribool(__key_curr, KI_RIGHT, KI_LEFT)
 INLINE int key_tri_vert()    { return bit_tribool(__key_curr, KI_DOWN , KI_UP  ); }
 INLINE int key_tri_sholder() { return bit_tribool(__key_curr, KI_R    , KI_L   ); }
 INLINE int key_tri_fire()    { return bit_tribool(__key_curr, KI_A    , KI_B   ); }
+
+
+//Object storage;
+extern OBJ_ATTR obj_buffer[128];
+extern OBJ_AFFINE* obj_aff_buffer;
+
+
 
 
 

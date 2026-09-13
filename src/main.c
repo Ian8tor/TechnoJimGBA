@@ -5,18 +5,16 @@
 #include <stdlib.h>
 #include <String.h>
 
-#include "TextBox.h"
 #include "Conversation.h"
-#include "Toolbox.h"
 #include "SoundPlayer.h"
 #include "Platformer.h"
+#include "TextBox.h"
+#include "Toolbox.h"
+#include "Sprite.h"
+
 
 #include "Music.h"
 #include "Graphic.h"
-
-OBJ_ATTR obj_buffer[128];
-OBJ_AFFINE* obj_aff_buffer = (OBJ_AFFINE*)obj_buffer;
-
 
 
 
@@ -141,10 +139,6 @@ void moveScreen(const unsigned short* map, int w, int h, int sbb, int bg, int ne
 }
 
 
-//2 , 4 , 4 , 32
-//2 , 4 , 4 , 32
-//1 , 4 , 16, 64
-
 
 int main()
 {	
@@ -160,32 +154,37 @@ int main()
 	
 	// * * * BG * * *
 	//Copies the entries to memory
-	memcpy(bg_pal_mem, TIL_sand2_palette, 16);
+	memcpy(bg_pal_mem, TIL_badTiles_palette, 32);
+	//memcpy(bg_pal_mem, TIL_sand2_palette, 16);
 	
-	memcpy(&tile_mem[1][0], TIL_sand2, TIL_sand2_bytes);
+	memcpy(&tile_mem[1][0], TIL_badTiles, TIL_badTiles_bytes);
+	//memcpy(&tile_mem[1][0], TIL_sand2, TIL_sand2_bytes);
 	//memcpy(&se_mem[30][0], MAP_map, 2 * MAP_map_w * MAP_map_h);
 	
 	memcpy(bg_pal_mem + ((__font_pal >> 0x8)), TIL_font_palette, 32);
 	memcpy(&tile_mem[0][0], TIL_font, TIL_font_bytes);
 	
 	
-	loadMapTo32x32(MAP_64x64, 64, 32, 30);
+	loadMapTo32x32(MAP_64x200, MAP_64x200_w, 32, 30);
 	
 	// * * * SPRITE * * * 
 	//Places the tiles into block 4
-	memcpy(&tile_mem[4][0], GFX_sadSlimeSheet, GFX_sadSlimeSheet_bytes);
-	memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlimeSheet_palette, 32);
+	memcpy(&tile_mem[4][0], GFX_cloakGuySheet, GFX_cloakGuySheet_bytes);
+	memcpy((u32*)MEM_OBJ_PALETTE, GFX_cloakGuySheet_palette, 32);
+	//memcpy(&tile_mem[4][0], GFX_sadSlimeSheet, GFX_sadSlimeSheet_bytes);
+	//memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlimeSheet_palette, 32);
 	
 	//Initalizes sprite
 	oamInit(obj_buffer, 128);
 	
 	//Slime
-	struct Player blob = {{620<<8, 424<<8},   //pos
-						  {2  , 6, 10, 8},   //hitbox
-						  {0  , 0   },       //vel
-						  {35 , 35  },       //accel
-						  {500, 2000},       //max
-						  20, 10, 20, 510, 15, 15, 6, {0, 0, 0, 0}};
+	struct Player blob = {{318<<8, 2017<<8},   //pos
+						  {7, 9, 8, 8},       //hitbox
+						  {0  , 0   },        //vel
+						  {35 , 35  },        //accel
+						  {500, 2000},        //max
+						  20, 10, 20, 510, 15, 15, 6, 1, 0, {0, 0, 0, 0}};
+	spriteCreate(&blob.spr, 0, 0, 0, &ANI_cloakGuySheet);
 						  
 	//int gFriction;
 	//int aFriction;
@@ -194,72 +193,38 @@ int main()
 	//int gravity;
 	//int gravityInc;
 
-	u32 tid = 0;
-	u32 pb  = 0;
-	OBJ_ATTR* slime = &obj_buffer[0];
-	
-	obj_set_attr(slime,
-				 ATTR0_BUILD(0 , 0, 0, 0, 0, blob.pos[1]),
-				 ATTR1_BUILD(1 , 0, 0, blob.pos[0]),+
-				 ATTR2_BUILD(pb, 0, tid));
-	
+
 	createAllConversations();
-	createTextBox(1, 12, 28, 7);
+	//createTextBox(1, 12, 28, 7);
 	
 	int scrX = 0;
 	int scrY = 0;
 	
-	int f = 0;
-	int t = 0;
-	int a = 0;
-	
 	while(1)
 	{
-		/*
-		se_mem[31][29] = a + 48;
-		se_mem[31][61] = f + 48;
-		
-		char text[] = {48, 48, 48, 48, 48, 48, 48, 0};
-		numToString(text, ANI_sadSlimeSheet.animations[a][f] / 0xFFFF, 7);
-		renderText(0, 0, text);
-		
-		char text2[] = {48, 48, 48, 48, 48, 48, 48, 0};
-		numToString(text2, ANI_sadSlimeSheet.animations[a][f] % 0xFFFF, 7);
-		renderText(0, 1, text2);
-		
-		*/
 		if (!isPlaying(0)) { playSound(MUSCSong_BlueSkies, MUSCSong_BlueSkies_bytes, 0); }
 		key_poll();
 		vid_vsync();
+		se_mem[31][32] = 48 + blob.gravDir;
+		spriteTick(&blob.spr);
+		spriteSetR(&blob.spr, 16*(blob.gravDir % 2 == 0));
 		
-		//Changes animations
-		if (key_hit(KEY_UP))   { t = 0; f = 0; a = (a + 1) % ANI_sadSlimeSheet.animationCount; }
-		if (key_hit(KEY_DOWN)) { t = 0; f = 0; a = (a - 1); if (a == -1) { a = ANI_sadSlimeSheet.animationCount - 1;} }
-		
-		memcpy(&tile_mem[4][0], &ANI_sadSlimeSheet.spr[ANI_sadSlimeSheet.frameSize * (ANI_sadSlimeSheet.animations[a][f] / 0xFFFF)] , GFX_sadSlime_bytes);
-		t = (t + 1) % (ANI_sadSlimeSheet.animations[a][f] % 0xFFFF);
-		
-		if (t == 0) { f = (f + 1); }
-		if (ANI_sadSlimeSheet.animations[a][f] == 0) { f = 0; }
-		
-		runConversations();
-		//if (keyplaySound(MUS_Stolen_Piano, MUS_Stolen_Piano_bytes, 0);
-			
-		
-		
+		//runConversations();
+		/*	
 		if (__conv_vars[START] == 0 && __running_conv == -1)
 		{
 			__conv_vars[START] = selectName(displayHighscore(526732));
 			if (__conv_vars[START]) { createTextBox(1, 12, 28, 7); }
 		}
+		*/
 		
 		// * * * SPRITE * * 
+		adjustPlayerVelocityGrav(&blob, key_tri_horz(), key_tri_vert(), key_is_down(KEY_B), key_hit(KEY_B));
 		movePlayer(&blob);
-		obj_set_pos(slime, (blob.pos[0] - scrX) >> 8, (blob.pos[1] - scrY) >> 8);
-
-		//Facing direction
-		if      (blob.vel[0] < 0) { BF_SET(slime->attr1, 0, ATTR1_HF); }
-		else if (blob.vel[0] > 0) { BF_SET(slime->attr1, 1, ATTR1_HF); }
+		//obj_set_pos(slime, (blob.pos[0] - scrX) >> 8, (blob.pos[1] - scrY) >> 8);
+		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (6 << 8)*(blob.gravDir % 2 == 0);
+		int reY = blob.pos[1] - scrY - (5  << 8)*(blob.gravDir == 3)*(blob.gravDir % 2 == 1) - (9 << 8)*(blob.gravDir % 2 == 0)*(!blob.facing) + (9 << 8)*(blob.gravDir % 2 == 0)*(blob.facing);
+		spriteUpdatePos(&blob.spr, reX, reY);
 		
 		//Update oam
 		oamCopy((OBJ_ATTR*)MEM_OAM, obj_buffer, 1);
@@ -270,7 +235,9 @@ int main()
 		if (blob.pos[1] - scrY        < (60   << 8)) { scrY = blob.pos[1] - (60  << 8); }
 		if (scrY        - blob.pos[1] < (-84  << 8)) { scrY = blob.pos[1] - (84  << 8); }
 		if (scrY < 0 ) { scrY = 0 ; }
-		moveScreen(MAP_64x64, 64, 64, 30, 0, scrX >> 8, scrY >> 8);
+		if (scrX < 0 ) { scrX = 0 ; }
+		if (scrX > (MAP_64x200_w - 30) << 11) { scrX = (MAP_64x200_w - 30) << 11; }
+		moveScreen(MAP_64x200, MAP_64x200_w, MAP_64x200_h, 30, 0, scrX >> 8, scrY >> 8);
 	}
 	
 	return 0;
