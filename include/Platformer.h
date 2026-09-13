@@ -59,6 +59,7 @@ struct Player
 	//Cyote Jump
 	int cyote;
 	int gravDir;
+	int facing;
 	
 	//Character states
 	u32 touching[4];  //L, D, R, U

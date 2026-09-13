@@ -79,10 +79,8 @@ void adjustPlayerVelocityGrav(struct Player* p, int LRtribool, int UDtribool, in
 	//Sets the gravity direction
 	p->gravDir = getGravityDir(p);
 	int gravSign = (((p->gravDir / 2) == 0) - ((p->gravDir / 2) != 0));
-	//int gravSign = -(p->gravDir == 0) + (p->gravDir == 1) + (p->gravDir == 2) - (p->gravDir == 3);
 	int gravAxis = p->gravDir % 2;
 	int runAxis = (gravAxis == 0);
-	
 	int touching = p->touching[p->gravDir];
 	
 	//LR velocity
@@ -96,8 +94,7 @@ void adjustPlayerVelocityGrav(struct Player* p, int LRtribool, int UDtribool, in
 	int maxGrav =  p->maxVel[gravAxis] * gravSign;
 	int gravPow = p->gravity + (p->gravityInc)*((gravSign*p->vel[gravAxis]) < 0)*(!flt);
 	clamp(&p->vel[gravAxis], maxGrav, gravPow);
-	se_mem[31][0] = 48 + p->gravDir;
-	se_mem[31][1] = 48 + gravSign;
+	se_mem[31][0] = 48 + touching;
 	if ((touching <= p->cyote) && jump) 
 	{ 
 		p->vel[gravAxis] -= p->jump * gravSign; 
@@ -106,49 +103,41 @@ void adjustPlayerVelocityGrav(struct Player* p, int LRtribool, int UDtribool, in
 	}
 	
 	//Updates animation
-	if (p->vel[0] == 0) { p->spr.queued = 0; }
+	if (p->gravDir == 0) { spriteFlipX(&p->spr, 1); }
+	if (p->gravDir == 2) { spriteFlipX(&p->spr, 0); }
+	if (p->gravDir == 3) { spriteFlipY(&p->spr, 1); }
+	if (p->gravDir == 1) { spriteFlipY(&p->spr, 0); }
+	
+	if (p->vel[runAxis] == 0) { p->spr.queued = 0; }
 	else
 	{ 
-		spriteFlip(&p->spr, (p->vel[0] > 0), 0); 
+		p->facing = (p->vel[runAxis] * gravAxis < 0);
+		if (runAxis == 0) { spriteFlipX(&p->spr, (p->vel[0] < 0)); }
+		if (runAxis == 1) { spriteFlipY(&p->spr, (p->vel[1] < 0)); }
 		p->spr.queued = 1;
 	}
-}
-
-//Moves player without gravity or jumping
-void adjustPlayerVelocityNoGrav(struct Player* p, int LRtribool, int UDtribool)
-{
-	//LR velocity
-	clamp(&p->vel[0], 0                         , (p->gFriction)*(p->touching[1] == 0) + (p->aFriction)*(p->touching[1] != 0));
-	p->vel[0] += LRtribool*((p->accel[0])*(p->touching[1] == 0) + (p->aControl)*(p->touching[1] != 0));
-	if (p->vel[0] >  p->maxVel[0]) { p->vel[0] =  p->maxVel[0]; }
-	if (p->vel[0] < -p->maxVel[0]) { p->vel[0] = -p->maxVel[0]; }
-	
-	//UD velocity
-	clamp(&p->vel[1], 0                         , (p->gFriction)*(p->touching[1] == 0) + (p->aFriction)*(p->touching[1] != 0));
-	p->vel[1] += LRtribool*((p->accel[1])*(p->touching[1] == 0) + (p->aControl)*(p->touching[1] != 0));
-	if (p->vel[1] >  p->maxVel[1]) { p->vel[1] =  p->maxVel[1]; }
-	if (p->vel[1] < -p->maxVel[1]) { p->vel[1] = -p->maxVel[1]; }
 }
 
 
 void movePlayer(struct Player* p)
 {
-	
-	
+	//Gravity changing vars
+	int gravSign = (((p->gravDir / 2) == 0) - ((p->gravDir / 2) != 0));
+	int gravAxis = p->gravDir % 2;
+	int touching = p->touching[p->gravDir];
 	
 	//Impact sound
-	int impact = (p->vel[1] >= 600);
-	int prevTouch = p->touching[1];
+	int impact = (p->vel[gravAxis] * gravSign >= 600);
 
 	//Moves character and collides
 	p->pos[0] += p->vel[0];  tileCollision(p, 0);
 	p->pos[1] += p->vel[1];  tileCollision(p, 1);
 	
 	//Force plays the queued animation if landing
-	if (prevTouch && !p->touching[1]) { spriteSetAni(&p->spr, p->spr.queued); }
+	if (touching && !p->touching[p->gravDir]) { spriteSetAni(&p->spr, p->spr.queued); }
 	
 	//Plays impact sound
-	if (impact && !p->touching[1]) 
+	if (impact && !p->touching[p->gravDir]) 
 	{ 
 		spriteSetAni(&p->spr, 3);
 		playSound(SFX_landing, SFX_landing_bytes, 1);

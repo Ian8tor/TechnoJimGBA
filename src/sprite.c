@@ -16,11 +16,12 @@ void spriteCreate(struct Sprite* spr, int objID, int tID, int pb, struct Animati
 	spr->ticks = 0;
 	spr->serie = 0;
 	spr->queued = -1;
+	spr->r = 0;
 	
 	//Creates the object in memory at pos 0, 0
 	obj_set_attr(&obj_buffer[objID],
 				 ATTR0_BUILD(0 , 0, 0, 0, 0, 0),
-				 ATTR1_BUILD(1 , 0, 0, 0),
+				 ATTR1_BUILD(2 , 0, 0, 0),
 				 ATTR2_BUILD(pb, 0, tID));
 				 
 	spriteUpdateFrame(spr);

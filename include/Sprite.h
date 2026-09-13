@@ -19,6 +19,7 @@ struct Sprite
 	int ticks;
 	int serie;
 	int queued;
+	int r;
 };
 
 //Sprite functions
@@ -32,7 +33,14 @@ void spriteTick(struct Sprite* spr);
 INLINE void spriteUpdateFrame(struct Sprite* spr)
 {
 	struct Animation* a = spr->ani;
-	memcpy(&tile_mem[4][spr->tID], &a->spr[a->frameSize * (a->animations[spr->serie][spr->frame] / 0xFFFF)] , a->frameSize);
+	memcpy(&tile_mem[4][spr->tID], &a->spr[a->frameSize * ((a->animations[spr->serie][spr->frame] / 0xFFFF) + spr->r)] , a->frameSize);
+}
+
+INLINE void spriteSetR(struct Sprite* spr, int r)
+{
+	if (r == spr->r) { return; }
+	spr->r = r;
+	spriteUpdateFrame(spr);
 }
 
 INLINE void spriteUpdatePos(struct Sprite* spr, int x, int y)
@@ -45,6 +53,18 @@ INLINE void spriteUpdatePos(struct Sprite* spr, int x, int y)
 INLINE void spriteFlip(struct Sprite* spr, int xFlip, int yFlip)
 {
 	BF_SET(obj_buffer[spr->objID].attr1, xFlip, ATTR1_HF);
+	BF_SET(obj_buffer[spr->objID].attr1, yFlip, ATTR1_VF);
+}
+
+//Sets the flip flags for the sprite
+INLINE void spriteFlipX(struct Sprite* spr, int xFlip)
+{
+	BF_SET(obj_buffer[spr->objID].attr1, xFlip, ATTR1_HF);
+}
+
+//Sets the flip flags for the sprite
+INLINE void spriteFlipY(struct Sprite* spr, int yFlip)
+{
 	BF_SET(obj_buffer[spr->objID].attr1, yFlip, ATTR1_VF);
 }
 

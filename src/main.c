@@ -154,7 +154,7 @@ int main()
 	
 	// * * * BG * * *
 	//Copies the entries to memory
-	memcpy(bg_pal_mem, TIL_badTiles_palette, 16);
+	memcpy(bg_pal_mem, TIL_badTiles_palette, 32);
 	//memcpy(bg_pal_mem, TIL_sand2_palette, 16);
 	
 	memcpy(&tile_mem[1][0], TIL_badTiles, TIL_badTiles_bytes);
@@ -165,24 +165,26 @@ int main()
 	memcpy(&tile_mem[0][0], TIL_font, TIL_font_bytes);
 	
 	
-	loadMapTo32x32(MAP_64x200, 64, 32, 30);
+	loadMapTo32x32(MAP_64x200, MAP_64x200_w, 32, 30);
 	
 	// * * * SPRITE * * * 
 	//Places the tiles into block 4
-	memcpy(&tile_mem[4][0], GFX_sadSlimeSheet, GFX_sadSlimeSheet_bytes);
-	memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlimeSheet_palette, 32);
+	memcpy(&tile_mem[4][0], GFX_cloakGuySheet, GFX_cloakGuySheet_bytes);
+	memcpy((u32*)MEM_OBJ_PALETTE, GFX_cloakGuySheet_palette, 32);
+	//memcpy(&tile_mem[4][0], GFX_sadSlimeSheet, GFX_sadSlimeSheet_bytes);
+	//memcpy((u32*)MEM_OBJ_PALETTE, GFX_sadSlimeSheet_palette, 32);
 	
 	//Initalizes sprite
 	oamInit(obj_buffer, 128);
 	
 	//Slime
-	struct Player blob = {{318<<8, 3117<<8},   //pos
-						  {2  , 6, 10, 8},    //hitbox
+	struct Player blob = {{318<<8, 2017<<8},   //pos
+						  {7, 9, 8, 8},       //hitbox
 						  {0  , 0   },        //vel
 						  {35 , 35  },        //accel
 						  {500, 2000},        //max
-						  20, 10, 20, 510, 15, 15, 6, 0, {0, 0, 0, 0}};
-	spriteCreate(&blob.spr, 0, 0, 0, &ANI_sadSlimeSheet);
+						  20, 10, 20, 510, 15, 15, 6, 1, 0, {0, 0, 0, 0}};
+	spriteCreate(&blob.spr, 0, 0, 0, &ANI_cloakGuySheet);
 						  
 	//int gFriction;
 	//int aFriction;
@@ -203,7 +205,9 @@ int main()
 		if (!isPlaying(0)) { playSound(MUSCSong_BlueSkies, MUSCSong_BlueSkies_bytes, 0); }
 		key_poll();
 		vid_vsync();
+		se_mem[31][32] = 48 + blob.gravDir;
 		spriteTick(&blob.spr);
+		spriteSetR(&blob.spr, 16*(blob.gravDir % 2 == 0));
 		
 		//runConversations();
 		/*	
@@ -218,7 +222,9 @@ int main()
 		adjustPlayerVelocityGrav(&blob, key_tri_horz(), key_tri_vert(), key_is_down(KEY_B), key_hit(KEY_B));
 		movePlayer(&blob);
 		//obj_set_pos(slime, (blob.pos[0] - scrX) >> 8, (blob.pos[1] - scrY) >> 8);
-		spriteUpdatePos(&blob.spr, blob.pos[0] - scrX, blob.pos[1] - scrY);
+		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (6 << 8)*(blob.gravDir % 2 == 0);
+		int reY = blob.pos[1] - scrY - (5  << 8)*(blob.gravDir == 3)*(blob.gravDir % 2 == 1) - (9 << 8)*(blob.gravDir % 2 == 0)*(!blob.facing) + (9 << 8)*(blob.gravDir % 2 == 0)*(blob.facing);
+		spriteUpdatePos(&blob.spr, reX, reY);
 		
 		//Update oam
 		oamCopy((OBJ_ATTR*)MEM_OAM, obj_buffer, 1);
@@ -231,7 +237,7 @@ int main()
 		if (scrY < 0 ) { scrY = 0 ; }
 		if (scrX < 0 ) { scrX = 0 ; }
 		if (scrX > (MAP_64x200_w - 30) << 11) { scrX = (MAP_64x200_w - 30) << 11; }
-		moveScreen(MAP_64x200, 64, MAP_64x200_h, 30, 0, scrX >> 8, scrY >> 8);
+		moveScreen(MAP_64x200, MAP_64x200_w, MAP_64x200_h, 30, 0, scrX >> 8, scrY >> 8);
 	}
 	
 	return 0;
