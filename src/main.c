@@ -211,7 +211,7 @@ int main()
 		numToString(timeChar, time, 7);
 		renderText(7, 0, timeChar);
 		
-		if (dia < 3) { time++; }
+		if ((dia < 3) || (blob.pos[1] < (300  << 8))) { time++; }
 		
 		
 		if ((dia == 2) && (blob.pos[1] < (300  << 8))) { dia++; __conv_vars[START] = (u32)0; }
@@ -239,7 +239,7 @@ int main()
 		adjustPlayerVelocityGrav(&blob, key_tri_horz(), key_tri_vert(), key_is_down(KEY_B), key_hit(KEY_B));
 		movePlayer(&blob);
 		//obj_set_pos(slime, (blob.pos[0] - scrX) >> 8, (blob.pos[1] - scrY) >> 8);
-		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (6 << 8)*(blob.gravDir % 2 == 0) + (3 << 8)*(blob.gravDir == 0);
+		int reX = blob.pos[0] - scrX - (10 << 8)*(blob.facing      )*(blob.gravDir % 2 == 1) - (7 << 8)*(blob.gravDir % 2 == 0) + (3 << 8)*(blob.gravDir == 0) - (12 - (24*blob.facing) << 8)*(blob.gravDir == 3);
 		int reY = blob.pos[1] - scrY - (5  << 8)*(blob.gravDir == 3)*(blob.gravDir % 2 == 1) - (9 << 8)*(blob.gravDir % 2 == 0)*(!blob.facing) + (4 << 8)*(blob.gravDir % 2 == 0)*(blob.facing) + ((12 - (24*blob.facing)) << 8)*(blob.gravDir == 0);
 		spriteUpdatePos(&blob.spr, reX, reY);
 		
