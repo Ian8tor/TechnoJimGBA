@@ -16,12 +16,12 @@ void createAllConversations()
 	addMessageToConversation(1, 1, DEFAULT_DECISION, VAR(CONV_NUM) | SET_VAL | VAL(2) | ARISYA_HAPPY | RIGHT_SIDE, "It seems it points in the direction of the arrows");
 	addMessageToConversation(1, 2, DEFAULT_DECISION,                                    ARISYA_HAPPY | RIGHT_SIDE, "Be careful where you jump");
 	
-	createConversation(2,3,VAR(START) | EQUAL_TO | VAL(0));
+	createConversation(2,2,VAR(START) | EQUAL_TO | VAL(0));
 	addMessageToConversation(2, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_SHOCK | RIGHT_SIDE, "You can use the gravity to launch yourself");
 	addMessageToConversation(2, 1, DEFAULT_DECISION, VAR(CONV_NUM) | SET_VAL | VAL(3) | ARISYA_HAPPY | RIGHT_SIDE, "The exit must be close keep climbing");
 	
-	createConversation(3,3,VAR(START) | EQUAL_TO | VAL(0));
-	addMessageToConversation(2, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_HAPPY | RIGHT_SIDE, "WE MADE IT TO THE SURFACE!!");
+	createConversation(3,1,VAR(START) | EQUAL_TO | VAL(0));
+	addMessageToConversation(3, 0, DEFAULT_DECISION, VAR(START)    | SET_VAL | VAL(1) | ARISYA_HAPPY | RIGHT_SIDE, "WE MADE IT TO THE SURFACE!!");
 	
 	
 	/*
