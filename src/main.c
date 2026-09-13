@@ -211,7 +211,7 @@ int main()
 		numToString(timeChar, time, 7);
 		renderText(7, 0, timeChar);
 		
-		if ((dia < 3) || (blob.pos[1] < (300  << 8))) { time++; }
+		if ((blob.pos[1] > (300  << 8))) { time++; }
 		
 		
 		if ((dia == 2) && (blob.pos[1] < (300  << 8))) { dia++; __conv_vars[START] = (u32)0; }
