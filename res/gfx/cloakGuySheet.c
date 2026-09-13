@@ -2,7 +2,7 @@
 
 unsigned int  ANI_cloakGuySheet_walk[] = {ANI(8, 5 ), ANI(9, 5), ANI(10, 5), ANI(11 , 5), ANI(12, 5), ANI(13, 5), ANI(14, 5), ANI(15, 5), 0};
 unsigned int  ANI_cloakGuySheet_idle[] = {ANI(0, 10), ANI(7, 10), 0 };
-unsigned int  ANI_cloakGuySheet_jump[] = {ANI(1, 5 ), ANI(2, 5), ANI(3 , 3), ANI(4 , 30), ANI(5 , 10000), 0};
+unsigned int  ANI_cloakGuySheet_jump[] = {ANI(1, 5 ), ANI(2, 5), ANI(3 , 30), ANI(4 , 20), ANI(5 , 10000), 0};
 unsigned int  ANI_cloakGuySheet_land[] = {ANI(5, 5 ), ANI(6, 5), ANI(7 , 5), 0};
 unsigned int* ANI_cloakGuySheet_ani[]  = {ANI_cloakGuySheet_idle, ANI_cloakGuySheet_walk, ANI_cloakGuySheet_jump, ANI_cloakGuySheet_land};
 struct Animation ANI_cloakGuySheet = {GFX_cloakGuySheet, 512, 4, ANI_cloakGuySheet_ani};

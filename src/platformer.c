@@ -94,7 +94,6 @@ void adjustPlayerVelocityGrav(struct Player* p, int LRtribool, int UDtribool, in
 	int maxGrav =  p->maxVel[gravAxis] * gravSign;
 	int gravPow = p->gravity + (p->gravityInc)*((gravSign*p->vel[gravAxis]) < 0)*(!flt);
 	clamp(&p->vel[gravAxis], maxGrav, gravPow);
-	se_mem[31][0] = 48 + touching;
 	if ((touching <= p->cyote) && jump) 
 	{ 
 		p->vel[gravAxis] -= p->jump * gravSign; 
@@ -111,7 +110,7 @@ void adjustPlayerVelocityGrav(struct Player* p, int LRtribool, int UDtribool, in
 	if (p->vel[runAxis] == 0) { p->spr.queued = 0; }
 	else
 	{ 
-		p->facing = (p->vel[runAxis] * gravAxis < 0);
+		p->facing = (p->vel[runAxis] * gravSign < 0);
 		if (runAxis == 0) { spriteFlipX(&p->spr, (p->vel[0] < 0)); }
 		if (runAxis == 1) { spriteFlipY(&p->spr, (p->vel[1] < 0)); }
 		p->spr.queued = 1;
