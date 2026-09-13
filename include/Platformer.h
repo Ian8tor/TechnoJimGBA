@@ -2,6 +2,7 @@
 #define PLATFORMER_H
 
 #include "Toolbox.h"
+#include "Sprite.h"
 
 //#define GET_PLAYER_TOUCH_L(n) (((n) & 0x000000FF) >> 0 )
 //#define GET_PLAYER_TOUCH_D(n) (((n) & 0x0000FF00) >> 8 )
@@ -55,19 +56,23 @@ struct Player
 	int gravity;
 	int gravityInc;
 	
-	//
+	//Cyote Jump
 	int cyote;
+	int gravDir;
 	
 	//Character states
 	u32 touching[4];  //L, D, R, U
+	struct Sprite spr;
 };
 
 //Deals with tile collision
-int tileCollisionX(struct Player* p);
-int tileCollisionY(struct Player* p);
 int tileCollision (struct Player* p, int diY);
 
 void movePlayer(struct Player* p);
+
+//Velocity adjustment
+void adjustPlayerVelocityGrav  (struct Player* p, int LRtribool, int UDtribool, int flt, int jump);
+void adjustPlayerVelocityNoGrav(struct Player* p, int LRtribool, int UDtribool);
 
 
 #endif

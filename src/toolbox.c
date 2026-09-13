@@ -1,5 +1,10 @@
 #include "Toolbox.h"
 
+//Object storage;
+OBJ_ATTR obj_buffer[128];
+OBJ_AFFINE* obj_aff_buffer = (OBJ_AFFINE*)obj_buffer;
+
+
 u16 __key_prev = 0;
 u16 __key_curr = 0;
 
